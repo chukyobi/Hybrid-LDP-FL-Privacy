@@ -16,7 +16,6 @@ live charts, numbered to match the same 13 cells / steps.
   Step 6  Privacy attack — measuring re-identification    (≈ Notebook Cells 6-7)
   Step 7  Privacy budget calibration (Section 4.7)        (≈ Notebook Cell 11)
   Step 8  Chapter 4 final results & takeaways              (≈ Notebook Cells 11 & 13)
-  Step 9  Reproducing these results                       (≈ Notebook Cells 1-3 & 12)
 
 Run:
     streamlit run dashboard/app.py
@@ -137,7 +136,6 @@ with st.sidebar:
     6. [Privacy attack](#step6)
     7. [ε calibration](#step7)
     8. [Final results](#step8)
-    9. [Reproduce it](#step9)
     """)
     st.divider()
     st.subheader("Privacy Settings")
@@ -484,31 +482,3 @@ ax8.set_title("Chapter 4: Final Performance Comparison Across All Methods", colo
 ax8.legend(facecolor="#1a1a2e", edgecolor="#334155", labelcolor="#e2e8f0")
 plt.tight_layout()
 st.pyplot(fig8)
-
-
-# ════════════════════════════════════════════════════════════════════════════
-# STEP 9 — Reproduce it
-# ════════════════════════════════════════════════════════════════════════════
-step_header(9, "Reproducing These Results", "step9", cell="Cells 1-3 & 12")
-
-col1, col2, col3 = st.columns(3)
-with col1:
-    st.code("python data/data_generator.py", language="bash")
-    st.caption("Step 2 — regenerate the synthetic dataset")
-with col2:
-    st.code("python experiments/run_baseline_fl.py\npython experiments/run_static_ldp_fl.py\npython experiments/run_hybrid_ldp_fl.py", language="bash")
-    st.caption("Step 5 — run all three conditions")
-with col3:
-    st.code("python experiments/calibrate_epsilon.py", language="bash")
-    st.caption("Step 7 — rerun the ε calibration sweep")
-
-st.info("After running any of the above, refresh this page (R) to load the fresh results.")
-
-# ── Footer ─────────────────────────────────────────────────────────────────────
-st.divider()
-st.caption("""
-🎓 **Thesis**: A Hybrid LDP-FL Algorithm for Privacy-Preserving Digital Footprint Protection
-📐 **Framework**: PyTorch · Scikit-learn · Streamlit
-🔐 **Privacy Mechanism**: Laplace (Context-Aware ε) + Gradient Clipping (DP-SGD)
-📖 **Full explanations**: `WALKTHROUGH.md`  ·  **Original code**: `Hybrid_LDP_FL_Colab.ipynb`
-""")
