@@ -150,7 +150,7 @@ with st.sidebar:
 # ── Header ─────────────────────────────────────────────────────────────────────
 st.title("🔒 Hybrid LDP-FL Visual Results")
 st.caption("A Context-Aware Local Differential Privacy + Federated Learning Algorithm "
-           "for Privacy-Preserving Digital Footprint Protection — 9 steps, pure visuals.")
+           "for Privacy-Preserving Digital Footprint Protection — 8 steps, pure visuals.")
 st.divider()
 
 
@@ -197,7 +197,7 @@ hybrid_hist   = hybrid_data["history"]   if hybrid_data   else simulate_history(
 USING_SIMULATED = not any([baseline_data, static_data, hybrid_data])
 if USING_SIMULATED:
     st.warning("⚠️  No experiment results found yet. Charts below show **simulated**"
-               " placeholder data. Run the experiment scripts (Step 9) and refresh"
+               " placeholder data. Run the experiment scripts locally (see README.md) and refresh"
                " to see your real results.")
 
 raw_df     = load_csv("data/raw/footprint_raw.csv")
@@ -251,7 +251,7 @@ if raw_df is not None:
     st.pyplot(fig2)
 else:
     st.info("`data/raw/footprint_raw.csv` not found — run `python data/data_generator.py` "
-            "(Step 9) to generate it and see real samples here.")
+            "locally to see real samples here.")
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -300,7 +300,7 @@ if raw_df is not None:
     st.caption(f"Mean squared distortion on this sample — **{hi_feat}**: {mse_hi:.4f}  ·  "
                f"**{lo_feat}**: {mse_lo:.4f}. Smaller ε injects visibly more noise.")
 else:
-    st.info("`data/raw/footprint_raw.csv` not found — run Step 9 to generate it and see the live noise demo.")
+    st.info("`data/raw/footprint_raw.csv` not found — run `python data/data_generator.py` locally to see the live noise demo.")
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -332,7 +332,7 @@ if client_dfs:
     plt.tight_layout()
     st.pyplot(fig5)
 else:
-    st.info("`data/processed/client_*.csv` not found — run Step 9 to generate per-client shards.")
+    st.info("`data/processed/client_*.csv` not found — run `python data/data_generator.py` locally to generate per-client shards.")
 
 try:
     from fl.model import get_model, count_parameters
@@ -451,7 +451,7 @@ if calibration_data:
                f"re-ID rate {optimal['re_id_rate']*100:.2f}%.")
 else:
     st.warning("⚠️  No calibration sweep results found. Run `python experiments/calibrate_epsilon.py` "
-               "(Step 9) to generate `results/logs/epsilon_calibration_results.json` and see the real curve here.")
+               "locally to generate `results/logs/epsilon_calibration_results.json` and see the real curve here.")
 
 
 # ════════════════════════════════════════════════════════════════════════════
