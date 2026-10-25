@@ -141,7 +141,6 @@ with st.sidebar:
     st.subheader("Privacy Settings")
     eps_high = st.slider("ε High Sensitivity", 0.01, 2.0,  EPSILON_HIGH, 0.01)
     eps_low  = st.slider("ε Low Sensitivity",  0.1,  15.0, EPSILON_LOW,  0.1)
-    rounds   = st.slider("FL Rounds",          5,    50,  NUM_ROUNDS,   5)
     st.caption("Charts marked 🔁 recompute live from these.")
     st.divider()
     st.caption("Full explanations, analogies, and worked examples: "
@@ -190,9 +189,9 @@ static_data   = load_results("results/logs/static_ldp_fl_results.json")
 hybrid_data   = load_results("results/logs/hybrid_ldp_fl_results.json")
 calibration_data = load_results("results/logs/epsilon_calibration_results.json")
 
-baseline_hist = baseline_data["history"] if baseline_data else simulate_history("none",   rounds)
-static_hist   = static_data["history"]   if static_data   else simulate_history("static", rounds)
-hybrid_hist   = hybrid_data["history"]   if hybrid_data   else simulate_history("hybrid", rounds)
+baseline_hist = baseline_data["history"] if baseline_data else simulate_history("none")
+static_hist   = static_data["history"]   if static_data   else simulate_history("static")
+hybrid_hist   = hybrid_data["history"]   if hybrid_data   else simulate_history("hybrid")
 
 USING_SIMULATED = not any([baseline_data, static_data, hybrid_data])
 if USING_SIMULATED:
