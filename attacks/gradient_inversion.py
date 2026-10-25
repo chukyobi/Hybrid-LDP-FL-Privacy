@@ -8,10 +8,14 @@ Reference: Zhu et al., "Deep Leakage from Gradients" (NeurIPS 2019)
 This module simulates an adversary attempting to reconstruct
 original training data from intercepted model gradients.
 
-Used for:
-  - Measuring the Re-identification Rate metric in Chapter 4
-  - Demonstrating why FL alone is insufficient (no LDP)
-  - Showing Hybrid LDP-FL resists this attack
+SUPPLEMENTARY / ILLUSTRATIVE ONLY — this module is not part of the core
+Chapter 4 evaluation and is not imported by any experiment script. The
+Re-Identification Rate reported in Chapter 4 (Table 4.3 / 4.4) is computed
+by the nearest-neighbour linkage attack in experiments/evaluate.py
+(_simulated_reid_rate), not by this module. This file exists purely to
+demonstrate, conceptually, why Federated Learning alone provides
+architectural but not mathematical privacy (Section 2.1.4) — i.e. why the
+LDP layer is necessary at all — using an unprotected model.
 
 Usage:
     python attacks/gradient_inversion.py

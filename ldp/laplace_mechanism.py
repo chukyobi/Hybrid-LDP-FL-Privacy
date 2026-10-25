@@ -52,11 +52,11 @@ def privatize_value(x: Union[float, np.ndarray],
 
     Returns
     -------
-    Noisy x' = x + Laplace(0, Δf/ε)
+    Noisy x' = x + Laplace(0, Δf/ε) clipped to [0, 1]
     """
     x = np.asarray(x, dtype=np.float32)
     noise = laplace_noise(sensitivity, epsilon, size=x.shape).astype(np.float32)
-    return x + noise
+    return np.clip(x + noise, 0.0, 1.0)
 
 
 def privatize_vector(x_vec: np.ndarray,
@@ -74,7 +74,7 @@ def privatize_vector(x_vec: np.ndarray,
 
     Returns
     -------
-    Noisy array same shape as x_vec
+    Noisy array same shape as x_vec clipped to [0, 1]
     """
     x_vec = np.asarray(x_vec, dtype=np.float32)
     noise = np.zeros_like(x_vec)
@@ -86,4 +86,4 @@ def privatize_vector(x_vec: np.ndarray,
         for i in range(len(sensitivities)):
             noise[:, i] = laplace_noise(sensitivities[i], epsilons[i], size=x_vec.shape[0])
 
-    return x_vec + noise
+    return np.clip(x_vec + noise, 0.0, 1.0)

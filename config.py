@@ -13,8 +13,8 @@ Thesis: "A Hybrid Local Differential Privacy and Federated Learning
 # Lower ε  → stronger privacy (more noise)
 # Higher ε → weaker privacy  (less noise)
 # ─────────────────────────────────────────────
-EPSILON_HIGH = 0.1      # High-sensitivity data (inferred/passive footprints)
-EPSILON_LOW  = 1.0      # Low-sensitivity data  (active/explicit footprints)
+EPSILON_HIGH = 0.5      # High-sensitivity data (inferred/passive footprints)
+EPSILON_LOW  = 10.0     # Low-sensitivity data  (active/explicit footprints)
 DELTA        = 1e-5     # Approximate DP failure probability
 
 # ─────────────────────────────────────────────

@@ -34,7 +34,7 @@ def run():
         test_data=df_test,
     )
 
-    final = evaluate(server.global_model, df_test)
+    final = evaluate(server.global_model, df_test, privacy_mode="static", epsilon_static=STATIC_EPSILON)
     print_metrics(final, label="Static LDP-FL Final")
 
     out = f"{RESULTS_DIR}/static_ldp_fl_results.json"

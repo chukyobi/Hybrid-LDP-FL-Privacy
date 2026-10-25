@@ -19,7 +19,7 @@ class FootprintClassifier(nn.Module):
     """
     A lightweight MLP designed for resource-constrained edge devices.
     Architecture: Input → 64 → 32 → 16 → Output (2 classes)
-    Uses BatchNorm and Dropout for regularization under noisy data.
+    Uses LayerNorm and Dropout for regularization under noisy data.
     """
 
     def __init__(self, input_dim: int = NUM_FEATURES,
@@ -27,12 +27,12 @@ class FootprintClassifier(nn.Module):
         super(FootprintClassifier, self).__init__()
         self.network = nn.Sequential(
             nn.Linear(input_dim, 64),
-            nn.BatchNorm1d(64),
+            nn.LayerNorm(64),
             nn.ReLU(),
             nn.Dropout(0.3),
 
             nn.Linear(64, 32),
-            nn.BatchNorm1d(32),
+            nn.LayerNorm(32),
             nn.ReLU(),
             nn.Dropout(0.2),
 

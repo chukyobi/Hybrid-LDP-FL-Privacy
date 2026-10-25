@@ -44,19 +44,20 @@ Hybrid-LDP-FL-Privacy/
 │   └── gradient_clipping.py    # DP-SGD gradient norm bounding
 │
 ├── attacks/
-│   └── gradient_inversion.py   # DLG attack simulation (re-id metric)
+│   └── gradient_inversion.py   # DLG attack demo (supplementary — NOT the Chapter 4 re-id metric)
 │
 ├── experiments/
 │   ├── run_baseline_fl.py       # Standard FL (no privacy)
 │   ├── run_static_ldp_fl.py     # FL + uniform static ε LDP
-│   ├── run_hybrid_ldp_fl.py     # YOUR ALGORITHM ⭐
-│   └── evaluate.py              # Accuracy, F1, re-id rate computation
+│   ├── run_hybrid_ldp_fl.py     # Hybrid LDP-FL — the proposed algorithm ⭐
+│   ├── calibrate_epsilon.py     # ε_high calibration sweep (Section 4.7)
+│   └── evaluate.py              # Accuracy, F1, re-id rate computation (nearest-neighbour linkage attack)
 │
 ├── results/
 │   ├── logs/                    # JSON experiment results
 │   └── plots/                   # Charts for thesis figures
 │
-├── notebooks/                   # Jupyter exploration notebooks
+├── Hybrid_LDP_FL_Colab.ipynb    # Self-contained Colab/Jupyter companion notebook
 └── dashboard/
     └── app.py                   # Streamlit results dashboard
 ```
@@ -86,8 +87,11 @@ python experiments/run_baseline_fl.py
 # Static LDP-FL — uniform ε
 python experiments/run_static_ldp_fl.py
 
-# YOUR ALGORITHM — Context-Aware Hybrid LDP-FL ⭐
+# Hybrid LDP-FL — Context-Aware, the proposed algorithm ⭐
 python experiments/run_hybrid_ldp_fl.py
+
+# Privacy budget calibration sweep (Section 4.7)
+python experiments/calibrate_epsilon.py
 ```
 
 ### 4. Launch Dashboard
@@ -101,10 +105,15 @@ streamlit run dashboard/app.py
 
 | Metric | Baseline FL | Static LDP-FL | Hybrid LDP-FL ⭐ |
 |--------|------------|---------------|----------------|
-| **Accuracy** | Highest | Lowest | Better than Static |
-| **Re-ID Rate** | Highest risk | Low risk | Lowest risk |
-| **Training Speed** | Fastest | Moderate | Moderate |
-| **Privacy Guarantee** | ❌ None | ✅ Uniform | ✅✅ Context-Aware |
+| **Accuracy** | 88.00% (highest) | 64.20% (lowest) | 79.50% (recovers most of the accuracy Static LDP-FL sacrifices) |
+| **Re-ID Rate** | 100.00% (max risk) | 0.70% (lowest risk) | 21.30% (moderate risk — an order of magnitude below Baseline, in exchange for far better utility than Static) |
+| **Privacy Guarantee** | ❌ None | ✅ Uniform ε | ✅✅ Context-Aware, calibrated (Section 4.7) |
+
+Static LDP-FL achieves the lowest re-identification risk of the three, but at
+the largest utility cost. Hybrid LDP-FL does not beat Static on privacy alone —
+it is the calibrated middle ground that keeps re-identification risk far below
+Baseline while recovering most of the accuracy Static LDP-FL sacrifices. See
+`results/logs/*.json` for the exact saved figures.
 
 ---
 
@@ -112,8 +121,8 @@ streamlit run dashboard/app.py
 
 | Parameter | Value | Meaning |
 |-----------|-------|---------|
-| `EPSILON_HIGH` | 0.1 | Strong privacy for inferred/passive footprints |
-| `EPSILON_LOW` | 1.0 | Lighter privacy for explicit/active footprints |
+| `EPSILON_HIGH` | 0.5 | Strong privacy for high-sensitivity/hybrid-inference footprints (calibrated, Section 4.7) |
+| `EPSILON_LOW` | 10.0 | Light privacy for low-sensitivity/active footprints |
 | `MAX_GRAD_NORM` | 1.0 | Gradient clipping bound C |
 | `NUM_CLIENTS` | 10 | Simulated federated devices |
 | `NUM_ROUNDS` | 20 | Global FL communication rounds |

@@ -3,12 +3,21 @@ __pycache__/
 *.pyc
 *.pyo
 .DS_Store
-data/raw/
-data/processed/
-results/logs/*.json
-results/plots/*.png
-results/plots/*.pdf
 .ipynb_checkpoints/
 *.egg-info/
 dist/
 build/
+
+# Synthetic data & results ARE committed (see data/raw, data/processed,
+# results/logs) so the hosted Streamlit dashboard shows real numbers out of
+# the box — all synthetic, no real people. Only the stale/legacy secondary
+# plots dir stays ignored; the live dashboard regenerates its own charts.
+results/plots/*.png
+results/plots/*.pdf
+
+# Unpublished thesis documents — this repo is public; never auto-stage these.
+*.docx
+*.doc
+*.pdf
+~$*
+!WALKTHROUGH.docx

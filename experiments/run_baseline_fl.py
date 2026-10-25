@@ -30,7 +30,7 @@ def run():
         test_data=df_test,
     )
 
-    final = evaluate(server.global_model, df_test)
+    final = evaluate(server.global_model, df_test, privacy_mode="none")
     print_metrics(final, label="Baseline FL Final")
 
     out = f"{RESULTS_DIR}/baseline_fl_results.json"

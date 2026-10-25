@@ -1,0 +1,69 @@
+{
+  "num_rounds": 20,
+  "re_id_risk_threshold": 0.25,
+  "sweep": [
+    {
+      "epsilon_high": 0.1,
+      "epsilon_low": 10.0,
+      "accuracy": 0.801,
+      "f1_score": 0.8005,
+      "re_id_rate": 0.12
+    },
+    {
+      "epsilon_high": 0.25,
+      "epsilon_low": 10.0,
+      "accuracy": 0.81,
+      "f1_score": 0.8093,
+      "re_id_rate": 0.144
+    },
+    {
+      "epsilon_high": 0.5,
+      "epsilon_low": 10.0,
+      "accuracy": 0.811,
+      "f1_score": 0.8105,
+      "re_id_rate": 0.211
+    },
+    {
+      "epsilon_high": 0.75,
+      "epsilon_low": 10.0,
+      "accuracy": 0.821,
+      "f1_score": 0.8207,
+      "re_id_rate": 0.27
+    },
+    {
+      "epsilon_high": 1.0,
+      "epsilon_low": 10.0,
+      "accuracy": 0.825,
+      "f1_score": 0.8249,
+      "re_id_rate": 0.34
+    },
+    {
+      "epsilon_high": 2.0,
+      "epsilon_low": 10.0,
+      "accuracy": 0.853,
+      "f1_score": 0.853,
+      "re_id_rate": 0.619
+    },
+    {
+      "epsilon_high": 5.0,
+      "epsilon_low": 10.0,
+      "accuracy": 0.878,
+      "f1_score": 0.878,
+      "re_id_rate": 0.97
+    },
+    {
+      "epsilon_high": 10.0,
+      "epsilon_low": 10.0,
+      "accuracy": 0.875,
+      "f1_score": 0.875,
+      "re_id_rate": 1.0
+    }
+  ],
+  "selected_optimal": {
+    "epsilon_high": 0.5,
+    "epsilon_low": 10.0,
+    "accuracy": 0.811,
+    "f1_score": 0.8105,
+    "re_id_rate": 0.211
+  }
+}

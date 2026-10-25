@@ -162,7 +162,12 @@ class FLServer:
                 round_num=r, epsilon_static=epsilon_static, verbose=verbose
             )
             if evaluator and test_data is not None:
-                eval_metrics = evaluator(self.global_model, test_data)
+                eval_metrics = evaluator(
+                    self.global_model, 
+                    test_data, 
+                    privacy_mode=self.privacy_mode, 
+                    epsilon_static=epsilon_static
+                )
                 round_metrics.update(eval_metrics)
                 print(f"           accuracy={eval_metrics.get('accuracy', 0):.4f}  "
                       f"re_id_rate={eval_metrics.get('re_id_rate', 0):.4f}")

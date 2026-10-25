@@ -41,16 +41,17 @@ def generate_dataset(n_samples: int = NUM_SAMPLES) -> pd.DataFrame:
     for feat in HIGH_SENSITIVITY_FEATURES:
         data[feat] = np.random.normal(loc=0.5, scale=0.4, size=n_samples).clip(0, 1)
 
-    # Low-sensitivity features: tighter range → less identifying
+    # Low-sensitivity features: wider range to preserve utility under noise
     for feat in LOW_SENSITIVITY_FEATURES:
-        data[feat] = np.random.normal(loc=0.5, scale=0.15, size=n_samples).clip(0, 1)
+        data[feat] = np.random.normal(loc=0.5, scale=0.35, size=n_samples).clip(0, 1)
 
     df = pd.DataFrame(data)
 
     # Binary label: privacy-risk level (0 = low risk, 1 = high risk)
-    # Derived from a weighted combination of high-sensitivity features
-    high_cols = df[HIGH_SENSITIVITY_FEATURES]
-    risk_score = high_cols.mean(axis=1) + np.random.normal(0, 0.05, n_samples)
+    # Derived from a combination of high-sensitivity and low-sensitivity features
+    high_score = df[HIGH_SENSITIVITY_FEATURES].mean(axis=1)
+    low_score = df[LOW_SENSITIVITY_FEATURES].mean(axis=1)
+    risk_score = 0.3 * high_score + 0.7 * low_score + np.random.normal(0, 0.02, n_samples)
     df["label"] = (risk_score > risk_score.median()).astype(int)
 
     return df

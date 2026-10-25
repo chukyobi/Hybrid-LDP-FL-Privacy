@@ -40,7 +40,7 @@ def run():
     )
 
     # ── Step 4: Final evaluation ──────────────────────────────────────
-    final_metrics = evaluate(server.global_model, df_test)
+    final_metrics = evaluate(server.global_model, df_test, privacy_mode="hybrid")
     print_metrics(final_metrics, label="Hybrid LDP-FL Final")
 
     # ── Step 5: Save results ──────────────────────────────────────────
